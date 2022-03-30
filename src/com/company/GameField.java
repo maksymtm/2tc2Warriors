@@ -37,26 +37,26 @@ public class GameField extends JPanel {
             int key = e.getKeyCode();
             for (CharacterClass player : players) {
                 if (key == player.getLeftKey()) {
-                    //player.setX(player.getX() - 40);
+                    //player.setX(player.getX() - Constants.CHARACTER_WIDTH);
                     player.left();
                 }
                 if (key == player.getRightKey()) {
-                    //player.setX(player.getX() + 40);
+                    //player.setX(player.getX() + Constants.CHARACTER_WIDTH);
                     player.right();
                 }
                 if (key == player.getUpKey()) {
-                    //player.setY(player.getY() - 40);
+                    //player.setY(player.getY() - Constants.CHARACTER_WIDTH);
                     player.up();
                 }
                 if (key == player.getDownKey()) {
-                    //player.setY(player.getY() + 40);
+                    //player.setY(player.getY() + Constants.CHARACTER_WIDTH);
                     player.down();
                 }
                 if (key == player.getLeftAttackKey()) {
                     player.setAttackLeftImage();
 
-                    if (player.getX() > 0 && CharacterClass.occupiedCells[player.getX() - 40][player.getY()] > 0) {
-                        player.attack(players[CharacterClass.occupiedCells[player.getX() - 40][player.getY()]-1]);
+                    if (player.getX() > 0 && CharacterClass.occupiedCells[player.getX() - Constants.CHARACTER_WIDTH][player.getY()] > 0) {
+                        player.attack(players[CharacterClass.occupiedCells[player.getX() - Constants.CHARACTER_WIDTH][player.getY()]-1]);
                     }
                     //timer
                     new java.util.Timer().schedule(
@@ -72,8 +72,8 @@ public class GameField extends JPanel {
                 if (key == player.getRightAttackKey()) {
                     player.setAttackRightImage();
 
-                    if (player.getX() < 300 && CharacterClass.occupiedCells[player.getX() + 40][player.getY()] > 0) {
-                        player.attack(players[CharacterClass.occupiedCells[player.getX() + 40][player.getY()]-1]);
+                    if (player.getX() < 300 && CharacterClass.occupiedCells[player.getX() + Constants.CHARACTER_WIDTH][player.getY()] > 0) {
+                        player.attack(players[CharacterClass.occupiedCells[player.getX() + Constants.CHARACTER_WIDTH][player.getY()]-1]);
                     }
 
                     //timer

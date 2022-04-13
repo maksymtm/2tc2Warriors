@@ -23,7 +23,6 @@ public class Team {
     }
 
     public void info(){
-        //for(int i = 0; i < teamMembers.length; i++){
         for(CharacterClass teamMembers : teamMembers){
             teamMembers.info();
         }

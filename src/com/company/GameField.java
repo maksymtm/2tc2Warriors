@@ -24,9 +24,8 @@ public class GameField extends JPanel {
 
         for (CharacterClass player : players) {
             g.drawImage(player.getImage(), player.getX(), player.getY(), this);
-            g.drawString(""+player.getHealthPoints(), player.getX(), player.getY()+12);
-            g.drawString("steps", player.getX(), player.getY() + 26);
-            System.out.println("health points =   " + player.getHealthPoints());
+            g.drawString("" + player.getHealthPoints(), player.getX(), player.getY() + 12);
+            g.drawString("∞", player.getX(), player.getY() + 26);
         }
     }
 
@@ -36,28 +35,27 @@ public class GameField extends JPanel {
             super.keyPressed(e);
             int key = e.getKeyCode();
             for (CharacterClass player : players) {
-                if (key == player.getLeftKey()) {
-                    //player.setX(player.getX() - Constants.CHARACTER_WIDTH);
+                if (key == player.leftKey) {
                     player.left();
                 }
-                if (key == player.getRightKey()) {
-                    //player.setX(player.getX() + Constants.CHARACTER_WIDTH);
+                if (key == player.rightKey) {
                     player.right();
                 }
-                if (key == player.getUpKey()) {
-                    //player.setY(player.getY() - Constants.CHARACTER_WIDTH);
+                if (key == player.upKey) {
                     player.up();
                 }
-                if (key == player.getDownKey()) {
-                    //player.setY(player.getY() + Constants.CHARACTER_WIDTH);
+                if (key == player.downKey) {
                     player.down();
                 }
-                if (key == player.getLeftAttackKey()) {
+                if (key == player.leftAttackKey) {
                     player.setAttackLeftImage();
-
-                    if (player.getX() > 0 && CharacterClass.occupiedCells[player.getX() - Constants.CHARACTER_WIDTH][player.getY()] > 0) {
-                        player.attack(players[CharacterClass.occupiedCells[player.getX() - Constants.CHARACTER_WIDTH][player.getY()]-1]);
+                    if (player.getX() >= Constants.CHARACTER_IMG_WIDTH) {
+                        int neighbourId = CharacterClass.occupiedCells[player.getX() - Constants.CHARACTER_IMG_WIDTH][player.getY()];
+                        if (neighbourId > 0){
+                            player.attack(players[neighbourId - 1]);
+                        }
                     }
+
                     //timer
                     new java.util.Timer().schedule(
                             new java.util.TimerTask() {
@@ -69,13 +67,14 @@ public class GameField extends JPanel {
                             }, 200
                     );
                 }
-                if (key == player.getRightAttackKey()) {
+                if (key == player.rightAttackKey) {
                     player.setAttackRightImage();
-
-                    if (player.getX() < 300 && CharacterClass.occupiedCells[player.getX() + Constants.CHARACTER_WIDTH][player.getY()] > 0) {
-                        player.attack(players[CharacterClass.occupiedCells[player.getX() + Constants.CHARACTER_WIDTH][player.getY()]-1]);
+                    if (player.getX() <Constants.MAX_RIGHT_POSITION) {
+                        int neighbourId = CharacterClass.occupiedCells[player.getX() + Constants.CHARACTER_IMG_WIDTH][player.getY()];
+                        if (neighbourId > 0){
+                            player.attack(players[neighbourId - 1]);
+                        }
                     }
-
                     //timer
                     new java.util.Timer().schedule(
                             new java.util.TimerTask() {
